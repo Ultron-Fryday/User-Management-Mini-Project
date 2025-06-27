@@ -9,7 +9,7 @@ public class UserDTO {
 	 private String email;
 	 private String phone;
 	 private String password;
-	 private boolean password_status;
+	 private boolean passwordStatus;
 	 private String country;
 	 private String state;
 	 private String city;

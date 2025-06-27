@@ -28,6 +28,8 @@ public class DashboardServiceImpl implements DashboardService {
 		ResponseEntity<QuoteApiResponseDTO> forEntity = restTemplate.getForEntity(url, QuoteApiResponseDTO.class);
 		
 		QuoteApiResponseDTO body = forEntity.getBody();
+		if(body == null)
+			return null;
 		
 		log.info("getRandomQuote returning-- quote:{}",body.getAuthor());
 		return body;

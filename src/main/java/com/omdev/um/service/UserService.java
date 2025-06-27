@@ -2,6 +2,7 @@ package com.omdev.um.service;
 
 import java.util.Map;
 
+import com.omdev.um.constants.UserException;
 import com.omdev.um.dto.LoginFormDTO;
 import com.omdev.um.dto.RegisterFormDTO;
 import com.omdev.um.dto.ResetPasswordFormDTO;
@@ -13,10 +14,10 @@ public interface UserService {
 	public Map<Integer, String> getCities(Integer stateId);
 	
 	public boolean duplicateEmailCheck(String email);
-	public boolean registerUser(RegisterFormDTO regFormDTO) throws Exception;
+	public boolean registerUser(RegisterFormDTO regFormDTO) throws UserException;
 	public UserDTO login(LoginFormDTO loginFormDTO);
 	
-	public boolean resetPassword(ResetPasswordFormDTO resetPwdFormDTO) throws Exception;
+	public boolean resetPassword(ResetPasswordFormDTO resetPwdFormDTO) throws UserException;
 	
 	public UserDTO findUserById(Integer userId);
 }

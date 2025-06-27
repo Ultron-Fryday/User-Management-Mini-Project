@@ -4,8 +4,8 @@ import lombok.Getter;
 
 @Getter
 public enum StateEnum {
-	Telangana(1, "Telangana", 1), Maharashtra(2, "Maharashtra", 1), AndraPradesh(3, "AndraPradesh", 1),
-	California(4, "California", 2), Florida(5, "Florida", 2);
+	TELANGANA(1, "Telangana", 1), MAHARASHTRA(2, "Maharashtra", 1), ANDRAPRADESH(3, "AndraPradesh", 1),
+	CALIFORNIA(4, "California", 2), FLORIDA(5, "Florida", 2);
 
 	StateEnum(int id, String name, int countryId) {
 		this.id = id;

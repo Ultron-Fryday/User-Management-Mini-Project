@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.omdev.um.constants.UserException;
 import com.omdev.um.dto.LoginFormDTO;
 import com.omdev.um.dto.RegisterFormDTO;
 import com.omdev.um.dto.ResetPasswordFormDTO;
@@ -77,14 +78,11 @@ public class UserServiceImpl implements UserService {
 		log.info("duplicateEmailCheck -- email : {}",email);
 		UserEntity byEmail = userRepository.findByEmail(email);
 		log.info("byEmail:{}",byEmail);
-		if(byEmail == null) {
-			return true;
-		}
-		return false;
+		return byEmail == null;
 	}
 
 	@Override
-	public boolean registerUser(RegisterFormDTO regFormDTO) throws Exception {
+	public boolean registerUser(RegisterFormDTO regFormDTO) throws UserException {
 		log.info("registerUser called with RegisterFormDTO argument");
 		//Mapping RegisterFormDTO to UserEntity
 		UserEntity userEntity = mapDTOHelper.mapRegisterFormToUserEntity(regFormDTO);
@@ -120,17 +118,17 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean resetPassword(ResetPasswordFormDTO resetPwdFormDTO) throws Exception {
+	public boolean resetPassword(ResetPasswordFormDTO resetPwdFormDTO) throws UserException {
 		log.info("resetPassword called -- resetPwdFormDTO userId: {}",resetPwdFormDTO.getId());
 		UserEntity userEntity = userRepository.findById(resetPwdFormDTO.getId()).orElse(null);
 		if(userEntity == null) {
-			throw new Exception("User Not Found ...");
+			throw new UserException("User Not Found ...");
 		}
 		if(! userEntity.getPassword().equals(resetPwdFormDTO.getOldPassword())){
-			throw new Exception("Old Password Did Not Match");
+			throw new UserException("Old Password Did Not Match");
 		}
 		boolean passwordResetStatus = userEntity.isPasswordReset();
-		if(passwordResetStatus == false) {
+		if(!passwordResetStatus) {
 			//set passwordResetStatus true
 			log.info("It is first occurence of password reset");
 			userEntity.setPasswordReset(true);

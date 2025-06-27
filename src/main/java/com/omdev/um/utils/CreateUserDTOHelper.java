@@ -23,7 +23,7 @@ public class CreateUserDTOHelper {
 		userDTO.setEmail(userEntity.getEmail());
 		userDTO.setPassword(userEntity.getPassword());
 		userDTO.setPhone(userEntity.getPhone());
-		userDTO.setPassword_status(userEntity.isPasswordReset());
+		userDTO.setPasswordStatus(userEntity.isPasswordReset());
 		
 		CountryEnum countryEnum = CountryEnum.getEnumById(userEntity.getCountry().getCountryId());
 		StateEnum stateEnum  = StateEnum.getEnumById(userEntity.getState().getStateId());

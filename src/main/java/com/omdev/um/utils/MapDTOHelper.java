@@ -2,11 +2,8 @@ package com.omdev.um.utils;
 
 import org.springframework.stereotype.Component;
 
-import com.omdev.um.constants.CityEnum;
-import com.omdev.um.constants.CountryEnum;
-import com.omdev.um.constants.StateEnum;
+import com.omdev.um.constants.UserException;
 import com.omdev.um.dto.RegisterFormDTO;
-import com.omdev.um.dto.ResetPasswordFormDTO;
 import com.omdev.um.entity.CityEntity;
 import com.omdev.um.entity.CountryEntity;
 import com.omdev.um.entity.StateEntity;
@@ -27,7 +24,7 @@ public class MapDTOHelper {
 	private final StateRepository stateRepository;
 	private final CityRepository cityRepository;
 	
-	public UserEntity mapRegisterFormToUserEntity(RegisterFormDTO formDTO) throws Exception {
+	public UserEntity mapRegisterFormToUserEntity(RegisterFormDTO formDTO) throws UserException {
 		log.info("mapRegisterFormToUserEntity -- formDTO email : {}",formDTO.getEmail());
 		UserEntity userEntity = new UserEntity();
 		userEntity.setName(formDTO.getName());
@@ -37,15 +34,15 @@ public class MapDTOHelper {
 		//find CountryEntity,StateEntity,CityEntity by id
 		CountryEntity countryEntity = countryRepository.findById(formDTO.getCountryId()).orElse(null);
 		if(countryEntity ==  null ) {
-			throw new Exception("CountryEntity not found");
+			throw new UserException("CountryEntity not found");
 		}
 		StateEntity stateEntity = stateRepository.findById(formDTO.getStateId()).orElse(null);
 		if(stateEntity ==  null ) {
-			throw new Exception("StateEntity not found");
+			throw new UserException("StateEntity not found");
 		}
 		CityEntity cityEntity = cityRepository.findById(formDTO.getCityId()).orElse(null);
 		if(cityEntity ==  null ) {
-			throw new Exception("CityEntity not found");
+			throw new UserException("CityEntity not found");
 		}
 		//Perform Association
 		userEntity.setCountry(countryEntity);
